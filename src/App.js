@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import LoginPage from './pages/LoginPage';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Register from './pages/RegisterUser';
+import RegisterCandidate from './pages/RegisterCandidate';
+import Dashboard from './pages/Dashboard';
+import CompanyProfile from './pages/CompanyProfile';
+import ListCandidate from './pages/ListCandidate';
+import EditCand from './pages/EditCand';
+import EditCp from './pages/EditCp';
+function App() {  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/login' element={<LoginPage/>}></Route>
+          <Route path='/registerUser' element={<Register/>}></Route>
+          <Route path='/registercandidate' element={<RegisterCandidate/>}></Route>
+          <Route path='/login/dashboard' element={<Dashboard/>}></Route>
+          <Route path='/companyprofile' element={<CompanyProfile/>}></Route>
+          <Route path='/listcandidate' element={<ListCandidate/>}></Route>
+          <Route path='/editcand/:id' element={<EditCand/>}></Route>
+          <Route path='/editusr/:id' element={<EditCp/>}></Route>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
