@@ -44,6 +44,7 @@
                         </div>          
                 
                         <button type="submit" className='btn btn-primary'>Submit</button>
+                        <Link to={`/login`} className="btn btn-danger ms-3 mt-3">Back</Link>
                     </form>
                 </div>
             </div>

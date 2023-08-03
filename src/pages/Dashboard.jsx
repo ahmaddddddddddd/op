@@ -1,14 +1,29 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import axios from 'axios'
-import {Link} from 'react-router-dom'
+import {Link, navigate,useNavigate} from 'react-router-dom'
 import './Dashboard.css'
 
 const Dashboard = () => {
+    const navigate = useNavigate();
 
-
+    let storage = window.localStorage;
+    const token = storage.getItem('token')
+    
+useEffect (()=>{
+          if (!storage.getItem('token')) {
+            navigate('/login')
+          }
+    },[])
+    
+    const SignOut = async () =>{
+        storage.removeItem('token');
+         navigate('/login') 
+}
 
     return (
         <div>
+      
+         <button className='btn btn-danger ms-4' onClick={()=> SignOut()}>Sign Out</button>
 
             <div className="content">
 

@@ -9,13 +9,13 @@ const CompanyProfile = () => {
     try {
       const response = await axios.get('http://192.168.18.210:5000/api/comp');
       setUser(response.data);
-    } catch (error) {
+    } catch (error) { 
       console.log('Error fetching user:', error);
     }
   };
 
   useEffect(() => {
-    fetchData();
+    fetchData();              
   }, []);
 
   const handlerDelete = async (id) => {
@@ -26,10 +26,11 @@ const CompanyProfile = () => {
       console.log('Error fetching user:', error);
     }
   };
-
   return (
     <div>
       <div className="container m-5">
+      <Link to={`/login/dashboard`} className="btn btn-danger ms-3 mb-3">Back</Link>
+
         <table className="table table-dark table-striped">
           <thead>
             <tr>
@@ -42,9 +43,9 @@ const CompanyProfile = () => {
             </tr>
           </thead>
           <tbody>
-            {user.map((item) => (
+            {user.map((item, index) => (
               <tr key={item.id}>
-                <td>{item.id}</td>
+                <td>{index+1}</td>
                 <td>{item.name}</td>
                 <td>{item.email}</td>
                 <td>{item.address}</td>

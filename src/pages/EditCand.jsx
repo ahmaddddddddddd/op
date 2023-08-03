@@ -24,7 +24,7 @@ const EditCand = () => {
             console.log(error)
 
         }
-    }
+    }   
 
     const getDropdown = async () => {
         try {

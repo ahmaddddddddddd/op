@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';                 
 
 const ListCandidate = () => {
   const [candidates, setCandidates] = useState([]);
@@ -35,7 +35,10 @@ const ListCandidate = () => {
 
   return (  
     <div>
+
       <div className="container m-5">
+      <Link to={`/login/dashboard`} className="btn btn-danger ms-3 mb-3">Back</Link>
+
         <table className="table table-dark table-striped">
           <thead>
             <tr>
@@ -44,13 +47,13 @@ const ListCandidate = () => {
               <th scope="col">CompanyId</th>
               <th scope="col">Action</th>  
             </tr>
-          </thead>
+          </thead>  
           <tbody>
             {candidates.map((candidate, index) => (
               <tr key={candidate}>
                 <td>{index+1}</td>
-                <td>{candidate.username}</td>
-                <td>{candidate.company}</td>
+                <td>{candidate.title}</td>
+                <td>{candidate.description}</td>
                 <td>
                   <Link to={`/editcand/${candidate.id}`} className="btn btn-primary me-3">
                     Edit

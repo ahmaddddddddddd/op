@@ -10,13 +10,10 @@ const Register = () => {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [CompanyId, setCompanyId] = useState('')
+    const [companyId, setCompanyId] = useState('')
     const [companyList, setCompanyList] = useState([])
     const navigate = useNavigate();
 
-    useEffect(() => {
-        fetchData()
-    }, [])
 
     const fetchData = async () => {
         try {
@@ -27,15 +24,19 @@ const Register = () => {
         }
     }
 
+    useEffect(() => {
+        fetchData();
+    }, [])
+
+
     const handlerRegister = async (e) => {
     
         e.preventDefault();
         try {
-            const response = await axios.post('http://192.168.18.210:5000/api/auth/signup', {
-
+             await axios.post('http://192.168.18.210:5000/api/auth/signup', {
                 username: username,
                 password: password,
-                companyId: CompanyId
+                companyId: companyId,
 
             }); navigate('/login'); 
 
@@ -60,27 +61,20 @@ const Register = () => {
                     </div>
                     <div className="user-box">
                         <div className="col-8">
-                            <select className='form-control' value={CompanyId} onChange={(e) => setCompanyId(e.target.value)}>
+                            <select className='form-control' value={companyId} onChange={(e) => setCompanyId(e.target.value)}>
                                 {companyList.map((item, index) => (
-                                    <option className='option' value={item.name} key={index}>
-                                        {item.name} 
+                                    <option className='option' value={item.id} key={index}>
+                                        {item.name}
                                     </option>
                                 ))}
                             </select>
-
-
                         </div>
                     </div>
                     <button type="submit" className='btn btn-primary'>Submit</button>
+                    <Link to={`/login`} className="btn btn-danger ms-3 mt-3">Back</Link>
                 </form>
             </div>
-
         </div>
-
-
-
-
-
     )
 }
 

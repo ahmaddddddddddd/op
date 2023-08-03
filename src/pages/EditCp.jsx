@@ -1,68 +1,66 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Navigate,useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
 
 const EditCp = () => {
    
- const [Username, setUsername]= useState ('');
- const [Company, setCompany]= useState ('');
+ const [Name, setName]= useState ('');
  const [Address, setAddress]= useState ('');
  const [Phone, setPhone]= useState ('');
  const [Email, setEmail]= useState ('');
 
+const Navigate = useNavigate();
+
  const { id } = useParams()
-
-
- const HandlerEdit = async (e)=> {
-    e.preventDefault();
-
-   try {
-    const response = await axios.patch(`http://192.168.18.210:5000/api/comp/update/${id}`,{
-        username:Username,
-        company:Company,
+     
+ const submit = async (e) => {  
+  e.preventDefault()
+  try {
+      await axios.patch(`http://192.168.18.210:5000/api/comp/update/${id}`, {
+        name:Name,
+        email:Email,
         address:Address,
-        phone:Phone,
-        email:Email
-    });Navigate('/editusr')
-   } catch (error) {
-    console.log(error)
-   }
+        phone:Phone 
+      });Navigate('/companyprofile')
+  } catch (error) {
+      console.log(error)
 
-   const fetchData = async () => {
-    try {
-      const response = await axios.get(`http://192.168.18.210:5000/api/comp/update/${id}`);
-      const data = response.data;
-      setUsername(data.Username);
-      setCompany(data.company);
-      setAddress(data.Address);
-      setPhone(data.Phone);
-      setEmail(data.Email);
-    } catch (error) {
-      // Handle error here
-      console.error(error);
-    }
-  };
+  }
+}
+
+const fetchData = async () => {
+  try {
+    const response = await axios.get(`http://192.168.18.210:5000/api/comp/${id}`);
+    const data = response.data;
+    setName(data.name);
+    setEmail(data.email);
+    setAddress(data.address);
+    setPhone(data.phone);
+  } catch (error) {
+    // Handle error here
+    console.error(error);
+  }
+};
 
    useEffect(() => {
-       HandlerEdit()
+    fetchData()
    },[]);
 
 
 
 
- }
-
+ 
 
   return (
     <div>
-        <form className='row g-3 m-5' onSubmit={HandlerEdit}>
+        <form className='row g-3 m-5' onSubmit={submit}>                                 
         <div className="col-md-6">
                     username
-                    <input type="text" className="form-control" value={Username} onChange={(e) => setUsername(e.target.value)} placeholder='Your Name' />
+                    <input type="text" className="form-control" value={Name} onChange={(e) => setName(e.target.value)} placeholder='Your Name' />
                 </div>
                 <div className="col-6">
-                    company
-                    <input type="text" className="form-control" value={Company} onChange={(e) => setCompany(e.target.value)} placeholder='company' />
+                    email
+                    <input type="text" className="form-control" value={Email} onChange={(e) => setEmail(e.target.value)} placeholder='email' />
                 </div>
                 <div className="col-6">
                 address
@@ -72,15 +70,12 @@ const EditCp = () => {
                 phone
                     <input type="text" className="form-control" value={Phone} onChange={(e) => setPhone(e.target.value)} placeholder='phone' />
                 </div>
-                <div className="col-6">
-                    email
-                    <input type="text" className="form-control" value={Email} onChange={(e) => setEmail(e.target.value)} placeholder='email' />
-                </div>
+          
                 <div className="col-12">
-                    <button className="btn btn-primary" type="submit">Add</button>
+                    <button className="btn btn-primary" type="submit">UPDATE</button>
 
                 </div>
-            </form>
+            </form> 
     </div>
   )
 }
